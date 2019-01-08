@@ -1,0 +1,13 @@
+---
+
+- name: Setup rpc server
+  hosts: rpc-server
+  connection: ssh
+  become: true
+  tasks:
+    - set_fact:
+        brokerName: "{{ groups['rpc-server'].index(inventory_hostname) }}"
+    - name: Set up server
+    - shell: rm -rf /opt/benchmark
+    - shell: mv /opt/openmessaging-benchmark-0.0.1-SNAPSHOT /opt/benchmark
+    - shell: tuned-adm profile latency-performance
